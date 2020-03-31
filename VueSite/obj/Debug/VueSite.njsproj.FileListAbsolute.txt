@@ -1,0 +1,2 @@
+C:\Users\deric\source\repos\CarsStoreDemo\VueSite\obj\Debug\VueSite.njsprojAssemblyReference.cache
+C:\Users\deric\source\repos\CarsStoreDemo\VueSite\bin\Microsoft.NodejsTools.WebRole.dll

@@ -1,4 +1,4 @@
-﻿namespace PerksDemo.Entities
+﻿namespace Database.Interfaces
 {
     public interface IEntity
     {

@@ -5,3 +5,13 @@ C:\Users\deric\source\repos\PerksDemo\Database\obj\Debug\netcoreapp3.1\Database.
 C:\Users\deric\source\repos\PerksDemo\Database\obj\Debug\netcoreapp3.1\Database.AssemblyInfo.cs
 C:\Users\deric\source\repos\PerksDemo\Database\bin\Debug\netcoreapp3.1\Database.runtimeconfig.json
 C:\Users\deric\source\repos\PerksDemo\Database\bin\Debug\netcoreapp3.1\Database.runtimeconfig.dev.json
+C:\Users\deric\source\repos\CarsStoreDemo\Database\bin\Debug\netcoreapp3.1\Database.deps.json
+C:\Users\deric\source\repos\CarsStoreDemo\Database\bin\Debug\netcoreapp3.1\Database.runtimeconfig.json
+C:\Users\deric\source\repos\CarsStoreDemo\Database\bin\Debug\netcoreapp3.1\Database.runtimeconfig.dev.json
+C:\Users\deric\source\repos\CarsStoreDemo\Database\bin\Debug\netcoreapp3.1\Database.dll
+C:\Users\deric\source\repos\CarsStoreDemo\Database\bin\Debug\netcoreapp3.1\Database.pdb
+C:\Users\deric\source\repos\CarsStoreDemo\Database\obj\Debug\netcoreapp3.1\Database.csprojAssemblyReference.cache
+C:\Users\deric\source\repos\CarsStoreDemo\Database\obj\Debug\netcoreapp3.1\Database.AssemblyInfoInputs.cache
+C:\Users\deric\source\repos\CarsStoreDemo\Database\obj\Debug\netcoreapp3.1\Database.AssemblyInfo.cs
+C:\Users\deric\source\repos\CarsStoreDemo\Database\obj\Debug\netcoreapp3.1\Database.dll
+C:\Users\deric\source\repos\CarsStoreDemo\Database\obj\Debug\netcoreapp3.1\Database.pdb

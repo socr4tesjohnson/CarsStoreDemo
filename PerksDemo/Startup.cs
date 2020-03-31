@@ -1,13 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Web.Services.Interfaces;
+using Web.Services;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace PerksDemo
 {
@@ -23,7 +25,22 @@ namespace PerksDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddMvc()
+                .AddMvcOptions(o =>
+                {
+                    o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+                });
+
+            services.AddControllersWithViews().AddJsonOptions(o => o.JsonSerializerOptions.WriteIndented = true);
+
+            services.AddScoped<ICarService, CarService>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            var connectionString = @"Server=(localdb)\mssqllocaldb;Database=CarsDemoDB;Trusted_Connection=True";
+
+            services.AddDbContext<CarsContext>(o => {
+                o.UseSqlServer(connectionString, b => b.MigrationsAssembly("Web"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +60,6 @@ namespace PerksDemo
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -1,8 +1,263 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Car Demo";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div id="app">
+        <h1>Cars</h1>
+
+        <b-button @@click="openAddCarModal()">Add Car</b-button>
+        <b-modal id="update-car-modal" :title="this.carToUpdate.action + ' CAR'" @@ok="saveCar" >
+            <div>
+                <b-form ref="form" @@submit.stop.prevent="saveCar" >
+                    <b-form-group id="input-group-1"
+                                  label="Description:"
+                                  label-for="input-1"
+                                  invalid-feedback="Description is required">
+                        <b-form-input id="input-1"
+                                      v-model="carToUpdate.description"
+                                      required
+                                      :state="descriptionState"
+                                      placeholder="Enter Description"></b-form-input>
+                        <b-form-valid-feedback>Description is required</b-form-valid-feedback>
+                    </b-form-group>
+
+                    <b-form-group id="input-group-2" label="Year:" label-for="input-2" invalid-feedback="Year is required">
+                        <b-form-input id="input-2"
+                                      type="number"
+                                      v-model.number="carToUpdate.year"
+                                      required
+                                      :state="yearState"
+                                      placeholder="Enter year"
+                                      ></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group id="input-group-3" label="Color:" label-for="input-3" invalid-feedback="Color is required">
+                        <b-form-select id="input-3"
+                                       v-model="carToUpdate.color"
+                                       :options="colors"
+                                       required
+                                       :state="colorState"></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group id="input-group-4" label="Make:" label-for="input-4" invalid-feedback="Make is required">
+                        <b-form-select id="input-4"
+                                       v-model="carToUpdate.make"
+                                       :options="makes"
+                                       required
+                                       :state="makeState"></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group id="input-group-5" label="Type:" label-for="input-5" invalid-feedback="Type is required">
+                        <b-form-select id="input-5"
+                                       v-model="carToUpdate.type"
+                                       :options="types"
+                                       required
+                                       :state="typeState"></b-form-select>
+                    </b-form-group>
+
+                </b-form>
+                
+            </div>
+        </b-modal>
+
+        <div>
+            <b-input-group size="sm">
+                <b-form-input v-model="filter"
+                              type="search"
+                              id="filterInput"
+                              placeholder="Type to Search"></b-form-input>
+                <b-input-group-append>
+                    <b-button :disabled="!filter" @@click="filter = ''">Clear</b-button>
+                </b-input-group-append>
+            </b-input-group>
+
+            <b-table striped hover :fields="fields" :items="cars" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :filter="filter">
+                <template v-slot:cell(delete)="data">
+                    <b-button @@click="deleteCar(data.item)"> <b-icon-trash></b-icon-trash></b-button>
+                </template>>
+
+                <template v-slot:cell(edit)="data">
+                   
+                    <b-button @@click="openUpdateCarModal(data.item)"> <b-icon-pencil></b-icon-pencil></b-button>
+                </template>>
+
+                <template v-slot:cell(color)="data">
+                    {{ data.item.color.description }}
+                </template>
+                <template v-slot:cell(make)="data">
+                    {{ data.item.make.description }}
+                </template>
+                <template v-slot:cell(type)="data">
+                    {{ data.item.type.description }}
+                </template>
+            </b-table>
+        </div>
+
+
+    </div>
+
+<script type="text/javascript">
+
+    new Vue({
+        el: '#app',
+
+        data: {
+            fields: [
+                { key: 'delete', thStyle: {'width': '10px'}, sortable: false},
+                { key: 'edit', thStyle: {'width': '10px'}, sortable: false},
+                { key: 'description', sortable: true},
+                { key: 'year', sortable: true},
+                { key: 'color', sortable: true},
+                { key: 'make', sortable: true},
+                { key: 'type', sortable: true}
+            ],
+            cars: [],
+            colors: [],
+            types: [],
+            makes: [],
+            
+            filter: null,
+            sortBy: '',
+            sortDesc: false,
+            sortDirection: 'asc',
+
+            descriptionState: null,
+            yearState: null,
+            colorState: null,
+            makeState: null,
+            typeState: null,
+
+            carToUpdate: {},
+
+        },
+        mounted() {
+            fetch("/Home/LoadCars", {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json().then((data) => {
+                this.cars = data
+            }));
+
+            fetch("/Home/LoadCarColors", {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json().then((data) => {
+
+                this.colors = data.map(color => {
+                    return {
+                        value: color, text: color.description
+                    }
+                })
+                console.log(this.colors)
+            }));
+
+            fetch("/Home/LoadCarMakes", {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json().then((data) => {
+                this.makes = data.map(make => {
+                    return {
+                        value: make, text: make.description
+                    }
+                })
+            }));
+
+            fetch("/Home/LoadCarTypes", {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json().then((data) => {
+                this.types = data.map(type => {
+                    return {
+                        value: type, text: type.description
+                    }
+                })
+            }));
+
+        },
+        methods: {
+            checkFormValidity() {
+                const valid = this.$refs.form.checkValidity()
+                this.descriptionState = valid
+                this.yearState = valid
+                this.colorState = valid
+                this.makeState = valid
+                this.typeState = valid
+                return valid
+            },
+            clearUpdateCar() {
+                this.carToUpdate = {};
+            },
+            openAddCarModal() {
+                this.carToUpdate = { action: 'ADD' };
+                this.$bvModal.show('update-car-modal');
+            },
+            openUpdateCarModal(carToUpdate) {
+                this.carToUpdate = carToUpdate;
+                this.carToUpdate.action = 'UPDATE';
+                this.$bvModal.show('update-car-modal');
+            },
+            saveCar(evt) {
+                evt.preventDefault()
+
+                if (!this.checkFormValidity()) {
+                    return;
+                }
+
+                if (this.carToUpdate.action === 'ADD') {
+                    this.addCar();
+                }
+                else {
+                    this.updateCar();
+                }
+            },
+            addCar() {
+                console.log("Adding" + JSON.stringify(this.carToUpdate))
+                fetch("/Home/AddCar", {
+                    method: 'POST',
+                    headers: { 
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }, 
+                    body: JSON.stringify(this.carToUpdate)
+                }).then(response => response.json().then((data) => {
+                    this.cars.push(data)
+                    this.$bvModal.hide('update-car-modal')
+                }))
+            },
+            updateCar() {
+                console.log("Updating" + JSON.stringify(this.carToUpdate))
+                fetch("/Home/UpdateCar", {
+                    method: 'POST',
+                    headers: { 
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }, 
+                    body: JSON.stringify(this.carToUpdate)
+                }).then(response => response.json().then((data) => {
+                    this.cars.push(data)
+                    $bvModal.hide('update-car-modal') 
+                }))
+            },
+            deleteCar(cartoDelete) {
+                console.log("Deleting" + JSON.stringify(cartoDelete))
+                fetch("/Home/DeleteCar", {
+                    method: 'POST',
+                    headers: { 
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }, 
+                    body: JSON.stringify(cartoDelete)
+                }).then(() => {
+                    this.cars = this.cars.filter((car) => { return car.id !== cartoDelete.id });
+                })
+            },
+        }
+
+
+      
+    })
+</script>
