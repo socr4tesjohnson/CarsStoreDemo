@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "PerksDemo\Web.csproj", "{D52EA30D-8054-4F35-9B90-C072B5D4FAD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "CarDemo\Web.csproj", "{D52EA30D-8054-4F35-9B90-C072B5D4FAD3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Database\Database.csproj", "{E51E6D98-CD66-488E-AC2C-BF1F576D9367}"
 EndProject

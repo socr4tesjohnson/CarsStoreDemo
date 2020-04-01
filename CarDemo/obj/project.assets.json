@@ -7589,11 +7589,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\deric\\source\\repos\\CarsStoreDemo\\PerksDemo\\Web.csproj",
+      "projectUniqueName": "C:\\Users\\deric\\source\\repos\\CarsStoreDemo\\CarDemo\\Web.csproj",
       "projectName": "Web",
-      "projectPath": "C:\\Users\\deric\\source\\repos\\CarsStoreDemo\\PerksDemo\\Web.csproj",
+      "projectPath": "C:\\Users\\deric\\source\\repos\\CarsStoreDemo\\CarDemo\\Web.csproj",
       "packagesPath": "C:\\Users\\deric\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\deric\\source\\repos\\CarsStoreDemo\\PerksDemo\\obj\\",
+      "outputPath": "C:\\Users\\deric\\source\\repos\\CarsStoreDemo\\CarDemo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
