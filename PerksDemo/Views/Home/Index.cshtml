@@ -238,8 +238,12 @@
                     }, 
                     body: JSON.stringify(this.carToUpdate)
                 }).then(response => response.json().then((data) => {
-                    this.cars.push(data)
-                    $bvModal.hide('update-car-modal') 
+
+                    let foundCar = this.cars.find((car) => { return car.id === this.carToUpdate.id });
+
+                    foundCar = data;
+
+                    this.$bvModal.hide('update-car-modal') 
                 }))
             },
             deleteCar(cartoDelete) {

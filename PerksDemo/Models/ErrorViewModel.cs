@@ -1,6 +1,4 @@
-using System;
-
-namespace PerksDemo.Models
+namespace CarDemo.Models
 {
     public class ErrorViewModel
     {

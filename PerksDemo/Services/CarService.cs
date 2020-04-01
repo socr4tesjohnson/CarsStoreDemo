@@ -27,13 +27,6 @@ namespace Web.Services
                 throw new Exception("A car already exists for this ID");
             }
             var newCar = _mapper.Map<Database.Entities.Car>(carModel);
-            var color = _mapper.Map<Database.Entities.CarColor>(carModel.Color);
-            var type = _mapper.Map<Database.Entities.CarType>(carModel.Type);
-            var make = _mapper.Map<Database.Entities.CarMake>(carModel.Make);
-
-            newCar.Make = _context.CarMakes.Find(carModel.Make.Id);
-            newCar.Type = _context.CarTypes.Find(carModel.Type.Id);
-            newCar.Color = _context.CarColors.Find(carModel.Color.Id); 
 
             _context.Cars.Add(newCar);
             _context.SaveChanges();
@@ -42,24 +35,29 @@ namespace Web.Services
 
         public void DeleteCar(CarModel carModel)
         {
-            if (_context.Cars.All(x => x.Id != carModel.Id))
+            var carEntity = _context.Cars.Find(carModel.Id);
+
+            if (carEntity == null)
             {
                 throw new Exception("No Car found by that Id");
             }
-            var selectedCar = _mapper.Map<Database.Entities.Car>(carModel);
-            _context.Cars.Remove(selectedCar);
+            _context.Cars.Remove(carEntity);
             _context.SaveChanges();
         }
 
-        public CarModel EditCar(CarModel carModel)
+        public CarModel UpdateCar(CarModel carModel)
         {
-            if (_context.Cars.Any(x => x.Id != carModel.Id))
+            var carEntity = _context.Cars.Find(carModel.Id);
+
+            if (carEntity == null)
             {
                 throw new Exception("No Car found by that Id");
             }
-            var editedCar = _mapper.Map<Database.Entities.Car>(carModel);
+
+            _mapper.Map(carModel, carEntity);
+
             _context.SaveChanges();
-            return _mapper.Map<CarModel>(editedCar);
+            return _mapper.Map<Database.Entities.Car, CarModel>(carEntity);
         }
 
         public async Task<CarModel> LoadCarAsync(int carId)

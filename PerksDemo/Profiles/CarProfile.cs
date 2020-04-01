@@ -6,15 +6,15 @@ namespace Web.Profiles
     {
         public CarProfile()
         {
-            CreateMap<Database.Entities.Car, Models.CarModel>();
-            CreateMap<Database.Entities.CarColor, Models.CarColorModel>();
-            CreateMap<Database.Entities.CarMake, Models.CarMakeModel>();
-            CreateMap<Database.Entities.CarType, Models.CarTypeModel>();
+            CreateMap<Models.CarModel, Database.Entities.Car>().ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ReverseMap();
+            CreateMap<Models.CarColorModel, Database.Entities.CarColor>().ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ReverseMap();
+            CreateMap<Models.CarTypeModel, Database.Entities.CarType>().ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ReverseMap();
+            CreateMap<Models.CarMakeModel, Database.Entities.CarMake>().ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ReverseMap();
 
-            CreateMap<Models.CarModel, Database.Entities.Car>();
-            CreateMap<Models.CarColorModel, Database.Entities.CarColor>();
-            CreateMap<Models.CarTypeModel, Database.Entities.CarType>();
-            CreateMap<Models.CarMakeModel, Database.Entities.CarMake>();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Web.Services.Interfaces
         Task<CarModel> LoadCarAsync(int carId);
         CarModel AddCar(CarModel carModel);
         void DeleteCar(CarModel carModel);
-        CarModel EditCar(CarModel carModel);
+        CarModel UpdateCar(CarModel carModel);
         IEnumerable<CarColorModel> LoadCarColors();
         IEnumerable<CarTypeModel> LoadCarTypes();
         IEnumerable<CarMakeModel> LoadCarMake();

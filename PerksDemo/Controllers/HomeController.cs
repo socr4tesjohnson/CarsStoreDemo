@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using PerksDemo.Models;
+using CarDemo.Models;
 using Web.Models;
-using Web.Services;
 using Web.Services.Interfaces;
 
-namespace PerksDemo.Controllers
+namespace CarDemo.Controllers
 {
     public class HomeController : Controller
     {
@@ -60,7 +57,7 @@ namespace PerksDemo.Controllers
         [HttpPost]
         public CarModel UpdateCar([FromBody] CarModel carModel)
         {
-            return _carService.EditCar(carModel);
+            return _carService.UpdateCar(carModel);
         }
 
         [HttpPost]
@@ -68,9 +65,6 @@ namespace PerksDemo.Controllers
         {
             _carService.DeleteCar(carModel);
         }
-
-        
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

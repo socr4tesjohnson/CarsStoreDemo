@@ -11,7 +11,7 @@ using Web.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc.Formatters;
 
-namespace PerksDemo
+namespace CarDemo
 {
     public class Startup
     {
